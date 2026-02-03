@@ -8,8 +8,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +20,21 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.scrollbar-custom {
+  overflow-y: scroll;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  border-radius: 16px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #fde68a;
 }
