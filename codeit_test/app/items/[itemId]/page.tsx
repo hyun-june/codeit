@@ -8,18 +8,21 @@ import {
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const page = () => {
   const router = useRouter();
   const params = useParams();
   const itemId = Number(params.itemId);
   const { data } = useGetDetailItem(itemId);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editInput, setEditInput] = useState<string>("");
   const [memo, setMemo] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [previewImg, setPreviewImg] = useState<string>("");
+
   const [editIsCompleted, setEditIsCompleted] = useState<boolean>();
 
   const { mutate: deleteItem } = useDeleteItem();
@@ -33,9 +36,6 @@ const page = () => {
     }
   }, [data]);
 
-  const testSrc =
-    "https://img.freepik.com/free-photo/still-life-daisy-flowers_23-2150321434.jpg?semt=ais_hybrid&w=740&q=80";
-
   const handleEdit = () => {
     setIsEditing((prev) => !prev);
   };
@@ -46,6 +46,31 @@ const page = () => {
         router.push("/");
       },
     });
+  };
+
+  const handleImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("파일 크기는 5MB 이하만 가능합니다.");
+      setPreviewImg("");
+      setImageUrl("");
+      return;
+    }
+    const fileName = file.name.split(".")[0];
+    const isEnglish = /^[a-zA-Z]*$/.test(fileName);
+    if (!isEnglish) {
+      alert("파일 이름은 영어만 가능합니다.");
+      setPreviewImg("");
+      setImageUrl("");
+      return;
+    }
+    const previewImgUrl = URL.createObjectURL(file);
+
+    setPreviewImg(previewImgUrl);
+    setImageUrl(file.name);
   };
 
   const handleCompleted = () => {
@@ -66,6 +91,7 @@ const page = () => {
       {
         onSuccess: () => {
           setIsEditing(false);
+          router.push("/");
         },
       },
     );
@@ -76,7 +102,7 @@ const page = () => {
       <section className="h-16 px-2 flex justify-center items-center gap-4 border-2 border-slate-900 rounded-[27px]">
         <Image
           src={
-            editIsCompleted ? "/icons/checktodo.png" : "/icons/checkdone.png"
+            editIsCompleted ? "/icons/checkdone.png" : "/icons/checktodo.png"
           }
           alt="checklist"
           width={32}
@@ -100,17 +126,32 @@ const page = () => {
       </section>
       <section className="my-5 flex gap-5">
         <article
-          className={`flex-1 border  border-slate-300 ${isEditing ? "border-dashed  bg-slate-50" : "border-0"} rounded-3xl flex justify-center items-center relative overflow-hidden`}
+          className={`flex-1 border h-77.75  border-slate-300 ${isEditing ? "border-dashed  bg-slate-50" : "border"} rounded-3xl flex justify-center items-center relative overflow-hidden`}
         >
           <img
-            src={isEditing ? "/images/img.png" : testSrc}
+            src={previewImg || "/images/img.png"}
             alt="img"
-            className={`${isEditing ? "" : "w-full h-full object-cover"}`}
+            className={`${previewImg ? "w-full h-full object-contain" : ""}`}
           />
+
           <Button
             type={isEditing ? "detail-plus" : "detail-edit"}
             circle
-            className={`${isEditing ? "border-none" : "!border-2"} absolute bottom-4 right-4`}
+            className={`${isEditing ? "border-none" : "border-2!"} absolute bottom-4 right-4`}
+            onClick={
+              isEditing
+                ? () => fileInputRef.current?.click()
+                : () => setIsEditing(true)
+            }
+          />
+          <input
+            type="file"
+            name="imgFile"
+            id="imgFile"
+            className="hidden"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImg}
           />
         </article>
         <article className="relative w-147 h-77.75">
@@ -127,7 +168,7 @@ const page = () => {
             {isEditing ? (
               <textarea
                 className="mx-4 mt-16 w-full resize-none flex text-center justify-center h-[229px] scrollbar-custom focus:outline-none px-4"
-                value={memo}
+                value={memo || ""}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setMemo(e.target.value)
                 }

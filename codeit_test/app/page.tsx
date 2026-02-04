@@ -33,14 +33,20 @@ export default function Home() {
     setInputValue(e.target.value);
   };
 
-  const renderCheckList = (list: ItemList[], type: "todo" | "done") =>
-    list.length > 0 ? (
+  const renderCheckList = (list: ItemList[], type: "todo" | "done") => {
+    return list.length > 0 ? (
       list.map((item) => (
-        <CheckList type={type} name={item.name} key={item.id} id={item.id} />
+        <CheckList
+          isCompleted={item.isCompleted}
+          name={item.name}
+          key={item.id}
+          id={item.id}
+        />
       ))
     ) : (
       <EmptyCheckList type={type} />
     );
+  };
 
   return (
     <div>
@@ -49,6 +55,11 @@ export default function Home() {
           type="text"
           value={inputValue}
           onChange={handleInput}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter") {
+              handleCreateLIst();
+            }
+          }}
           className="h-14 w-250 rounded-3xl border-t-2 border-r-4 border-b-4 border-l-2 border-slate-900 px-2 py-4 pl-5"
         />
         <Button

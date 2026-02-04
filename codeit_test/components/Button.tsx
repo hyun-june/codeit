@@ -74,6 +74,12 @@ const ButtonStyles = {
   },
 } satisfies Record<ButtonProps["type"], ButtonStyleInfo>;
 
+/**
+ * 공용 버튼 컴포넌트
+ * - type: 버튼 종류
+ * - circle: 원형 여부
+ * - onClick: 클릭 이벤트
+ */
 const Button = ({ ...props }: ButtonProps) => {
   const { type, onClick, className, circle } = props;
   const styles: ButtonStyleInfo = ButtonStyles[type];
