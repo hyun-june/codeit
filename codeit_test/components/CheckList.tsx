@@ -1,14 +1,28 @@
+"use client";
+import { useUpdateItem } from "@/hooks/useItem";
 import Image from "next/image";
 import Link from "next/link";
 
 interface CheckListProps {
   type: "todo" | "done";
-  label: string;
+  name: string;
   id: number;
 }
 
-const CheckList = ({ type, label, id }: CheckListProps) => {
+const CheckList = ({ type, name, id }: CheckListProps) => {
   const isDone = type === "done";
+
+  const { mutate: updateItem } = useUpdateItem();
+
+  const handleComplete = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    updateItem({
+      itemId: id,
+      payload: {
+        isCompleted: !isDone,
+      },
+    });
+  };
 
   return (
     <Link href={`/items/${id}`}>
@@ -20,8 +34,9 @@ const CheckList = ({ type, label, id }: CheckListProps) => {
           alt="checklist"
           width={32}
           height={32}
+          onClick={handleComplete}
         />
-        <span className={isDone ? "line-through" : ""}>{label}</span>
+        <span className={isDone ? "line-through" : ""}>{name}</span>
       </div>
     </Link>
   );

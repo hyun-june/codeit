@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GNB from "@/components/GNB";
 import "./globals.css";
+import Provider from "@/components/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,10 +22,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-[NanumSquare]">
-        <header className=" border-b border-[#E2E8F0] h-15">
-          <GNB />
-        </header>
-        <main className="max-w-300 mx-auto py-8">{children}</main>
+        <Provider>
+          <header className=" border-b border-[#E2E8F0] h-15">
+            <GNB />
+          </header>
+          <main className="max-w-300 mx-auto py-8">{children}</main>
+        </Provider>
       </body>
     </html>
   );
