@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <div>
-      <section className="flex gap-3 md:gap-5">
+      <section className="flex gap-3 md:gap-5 py-8">
         <input
           type="text"
           value={inputValue}

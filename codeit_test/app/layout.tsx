@@ -21,12 +21,16 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css"
         />
       </head>
-      <body className="antialiased font-[NanumSquare]">
+      <body className="antialiased font-[NanumSquare] min-h-screen flex flex-col">
         <Provider>
           <header className=" border-b border-[#E2E8F0] h-15">
             <GNB />
           </header>
-          <main className="max-w-300 mx-auto py-8 px-4">{children}</main>
+          <main className=" bg-gray-50 flex-1 flex flex-col ">
+            <div className="lg:w-300 mx-auto flex-1 flex flex-col w-full">
+              {children}
+            </div>
+          </main>
         </Provider>
       </body>
     </html>

@@ -1,5 +1,3 @@
-#프로젝트
-
 ## [Todo 웹](https://codeittest.vercel.app/ "클릭 시 사이트로 이동")
 
 이미지 추가 및 수정이 가능한 Todo 관리 웹 서비스입니다.

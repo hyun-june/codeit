@@ -134,7 +134,7 @@ const page = () => {
   };
 
   return (
-    <div className="max-w-250">
+    <div className=" bg-white flex-1 py-8 px-8">
       <section className="h-16 px-2 flex justify-center items-center gap-4 border-2 border-slate-900 rounded-[27px]">
         <Image
           src={
