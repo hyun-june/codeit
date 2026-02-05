@@ -26,7 +26,7 @@ export default function RootLayout({
           <header className=" border-b border-[#E2E8F0] h-15">
             <GNB />
           </header>
-          <main className="max-w-300 mx-auto py-8">{children}</main>
+          <main className="max-w-300 mx-auto py-8 px-4">{children}</main>
         </Provider>
       </body>
     </html>

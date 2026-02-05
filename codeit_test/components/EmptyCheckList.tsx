@@ -4,6 +4,9 @@ interface EmptyCheckListProps {
   type: "todo" | "done";
 }
 
+/**
+ * 체크리스트가 비어 있을 때 렌더링되는 UI 컴포넌트
+ */
 const EmptyCheckList = ({ type }: EmptyCheckListProps) => {
   const isDone = type === "done";
 

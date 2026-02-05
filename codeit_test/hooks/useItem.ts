@@ -12,6 +12,7 @@ interface UpdateItemInput {
   };
 }
 
+/** 아이템 목록을 조회하는 훅 */
 export const useGetItemList = () => {
   return useQuery({
     queryKey: ["items"],
@@ -22,6 +23,7 @@ export const useGetItemList = () => {
   });
 };
 
+/** 아이템 상세 정보를 조회하는 훅 */
 export const useGetDetailItem = (itemId: number) => {
   return useQuery({
     queryKey: ["detail-item", itemId],
@@ -37,6 +39,7 @@ export const useGetDetailItem = (itemId: number) => {
   });
 };
 
+/** 아이템을 생성하는 훅 */
 export const useCreateItem = () => {
   const queryClient = useQueryClient();
 
@@ -55,6 +58,7 @@ export const useCreateItem = () => {
   });
 };
 
+/** 아이템을 삭제하는 훅 */
 export const useDeleteItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -69,6 +73,7 @@ export const useDeleteItem = () => {
   });
 };
 
+/** 아이템 정보를 수정하는 훅 */
 export const useUpdateItem = () => {
   const queryClient = useQueryClient();
   return useMutation({

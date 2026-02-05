@@ -10,6 +10,15 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * 아이템 상세 페이지
+ * - 아이템 정보 조회
+ * - 수정 모드 전환
+ * - 아이템 이름 / 메모 수정
+ * - 완료 상태 변경
+ * - 이미지 업로드 및 미리보기
+ * - 아이템 수정 및 삭제
+ */
 const page = () => {
   const router = useRouter();
   const params = useParams();
@@ -17,17 +26,33 @@ const page = () => {
   const { data } = useGetDetailItem(itemId);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  /** 수정 중인지 여부를 나타내는 상태 */
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  /** 아이템 name 수정용 입력값 상태 */
   const [editInput, setEditInput] = useState<string>("");
+
+  /** 아이템 memo 수정용 입력값 상태 */
   const [memo, setMemo] = useState<string>("");
+
+  /** 업로드된 이미지 파일명 */
   const [imageUrl, setImageUrl] = useState<string>("");
+
+  /** 업로드 이미지 미리보기 URL */
   const [previewImg, setPreviewImg] = useState<string>("");
 
+  /** 아이템 완료 상태 수정값 */
   const [editIsCompleted, setEditIsCompleted] = useState<boolean>();
 
+  /** 아이템 삭제 mutation */
   const { mutate: deleteItem } = useDeleteItem();
+
+  /** 아이템 수정 mutation */
   const { mutate: updateItem } = useUpdateItem();
 
+  /**
+   * 조회한 아이템 데이터를 수정용 상태로 초기화
+   */
   useEffect(() => {
     if (data) {
       setEditInput(data?.name);
@@ -36,10 +61,12 @@ const page = () => {
     }
   }, [data]);
 
+  /** 수정 모드 토글 */
   const handleEdit = () => {
     setIsEditing((prev) => !prev);
   };
 
+  /** 아이템 삭제 처리 */
   const handleDelete = () => {
     deleteItem(itemId, {
       onSuccess: () => {
@@ -47,6 +74,13 @@ const page = () => {
       },
     });
   };
+
+  /**
+   * 이미지 파일 업로드 처리
+   * - 파일 크기 제한 (5MB)
+   * - 파일명 영문 제한
+   * - 미리보기 URL 생성
+   */
 
   const handleImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -73,18 +107,20 @@ const page = () => {
     setImageUrl(file.name);
   };
 
+  /** 완료 상태 토글 (수정 모드에서만 가능) */
   const handleCompleted = () => {
     setEditIsCompleted((prev) => !prev);
   };
 
+  /** 아이템 수정 처리 */
   const handleUpdate = () => {
     updateItem(
       {
         itemId,
         payload: {
           name: editInput,
-          memo,
-          imageUrl,
+          memo: memo || "",
+          imageUrl: imageUrl,
           isCompleted: editIsCompleted,
         },
       },
@@ -98,7 +134,7 @@ const page = () => {
   };
 
   return (
-    <div className="max-w-250 mx-auto">
+    <div className="max-w-250">
       <section className="h-16 px-2 flex justify-center items-center gap-4 border-2 border-slate-900 rounded-[27px]">
         <Image
           src={
@@ -124,9 +160,10 @@ const page = () => {
           <span className="underline">{data?.name}</span>
         )}
       </section>
-      <section className="my-5 flex gap-5">
+      <section className="my-5 flex flex-col gap-5 lg:flex-row">
         <article
-          className={`flex-1 border h-77.75  border-slate-300 ${isEditing ? "border-dashed  bg-slate-50" : "border"} rounded-3xl flex justify-center items-center relative overflow-hidden`}
+          className={`border h-77.75 lg:flex-1 border-slate-300 ${isEditing ? "border-dashed" : "border"} 
+          rounded-3xl flex justify-center items-center relative overflow-hidden`}
         >
           <img
             src={previewImg || "/images/img.png"}
@@ -137,7 +174,7 @@ const page = () => {
           <Button
             type={isEditing ? "detail-plus" : "detail-edit"}
             circle
-            className={`${isEditing ? "border-none" : "border-2!"} absolute bottom-4 right-4`}
+            className={`${isEditing ? "border-none" : "border-2!"} absolute bottom-4 right-4 w-14 h-14 rounded-full`}
             onClick={
               isEditing
                 ? () => fileInputRef.current?.click()
@@ -154,7 +191,7 @@ const page = () => {
             onChange={handleImg}
           />
         </article>
-        <article className="relative w-147 h-77.75">
+        <article className="relative w-full lg:w-147 h-77.75">
           <Image
             src="/images/memo.png"
             alt="memo"
@@ -181,12 +218,17 @@ const page = () => {
           </div>
         </article>
       </section>
-      <section className="flex gap-4 justify-end">
+      <section className="flex gap-4 justify-center lg:justify-end">
         <Button
           type={isEditing ? "editing" : "edit-active"}
           onClick={isEditing ? handleUpdate : () => handleEdit()}
+          className="w-42 h-14 px-4 rounded-3xl"
         />
-        <Button type="delete" onClick={() => handleDelete()} />
+        <Button
+          type="delete"
+          onClick={() => handleDelete()}
+          className="w-42 h-14 px-4 rounded-3xl"
+        />
       </section>
     </div>
   );

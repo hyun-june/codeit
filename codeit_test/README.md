@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#프로젝트
 
-## Getting Started
+## [Todo 웹](https://codeittest.vercel.app/ "클릭 시 사이트로 이동")
 
-First, run the development server:
+이미지 추가 및 수정이 가능한 Todo 관리 웹 서비스입니다.
+<br/>할 일을 등록하고, 완료 여부를 관리하며, 각 아이템에 이미지와 메모를 추가해 보다 직관적으로 Todo를 관리할 수 있습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 주요 기능
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **아이템 등록**
+  - 할 일 이름 입력 후 `ENTER` 또는 **추가하기 버튼** 클릭
+  - 등록 즉시 리스트에 반영
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **아이템 수정**
+  - 아이템 클릭 후 수정 모드 전환하여 수정 가능
+  - 메모 내용 등록 가능
+  - 이미지 등록 가능
+  - 완료 상태 변경 가능
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **아이템 삭제**
+  - 선택한 아이템 삭제
 
-## Learn More
+## 사용 방법
 
-To learn more about Next.js, take a look at the following resources:
+### 1. 메인 페이지
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 1번 클릭시 `/`으로 이동
+- 2번 입력 창에 내용 입력
+- 3번 **추가하기** 버튼 또는 `ENTER`
+- 4번 클릭 시 완료 상태 변경
+- 리스트 아이템 직접 클릭 시 상세 페이지로 이동
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![이미지 1](./public/docs/main.png)
 
-## Deploy on Vercel
+### 2. 상세 페이지
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 1번 또는 2번 클릭 시 수정 상태로 변경
+- 3번 클릭 시 해당 아이템 삭제
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![이미지 1](./public/docs/detail.png)
+
+### 3. 수정
+
+- 1번 클릭 시 완료 상태 변경
+- 2번 클릭 시 이미지 등록 가능
+- 3번 메모 입력 가능
+- 4번 클릭 시 수정 완료 상태 변경 -> 메인 페이지로 이동
+- 5번 클릭 시 해당 아이템 삭제
+
+![이미지 1](./public/docs/edit.png)

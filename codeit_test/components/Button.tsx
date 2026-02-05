@@ -84,15 +84,23 @@ const Button = ({ ...props }: ButtonProps) => {
   const { type, onClick, className, circle } = props;
   const styles: ButtonStyleInfo = ButtonStyles[type];
   const IconComponent = styles.icon ? ICONS[styles.icon] : null;
+  const isMobileCircle = type === "add" || type === "empty-add";
+
+  const base =
+    "shrink-0 flex items-center justify-center border-t-2 border-l-2 border-b-4 border-r-4 border-slate-900 font-bold cursor-pointer";
+
+  const mobile = isMobileCircle && "w-14 h-14 rounded-full";
+
+  const desktop = circle
+    ? "md:w-12 md:h-12 md:rounded-full"
+    : "md:w-42 md:h-auto md:px-4 md:py-2 md:rounded-3xl";
+
   return (
     <button
       onClick={onClick}
-      className={` ${circle ? "w-12 h-12 rounded-full" : "w-42 rounded-3xl px-4 py-2"} 
-      ${styles.bg} ${styles.text} flex gap-1 items-center justify-center 
-     border-t-2 border-l-2 border-b-4 border-r-4 border-slate-900 font-bold cursor-pointer ${className ?? ""}`}
+      className={`${base} ${styles.bg} ${styles.text} ${mobile} ${desktop} ${className ?? ""}`}
     >
       {IconComponent && <IconComponent size={circle ? 20 : 16} />}
-
       {!IconComponent && styles.image && (
         <Image
           src={styles.image}
@@ -102,7 +110,11 @@ const Button = ({ ...props }: ButtonProps) => {
           height={circle ? 24 : 16}
         />
       )}
-      {!circle && styles.label}
+      {styles.label && (
+        <span className={isMobileCircle ? "hidden md:inline" : ""}>
+          {styles.label}
+        </span>
+      )}
     </button>
   );
 };
