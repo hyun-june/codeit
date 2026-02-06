@@ -13,11 +13,16 @@ interface UpdateItemInput {
 }
 
 /** 아이템 목록을 조회하는 훅 */
-export const useGetItemList = () => {
+export const useGetItemList = (page: number = 1, pageSize: number = 10) => {
   return useQuery({
-    queryKey: ["items"],
+    queryKey: ["items", page, pageSize],
     queryFn: async () => {
-      const res = await api.get(`/${TENANT_ID}/items`);
+      const res = await api.get(`/${TENANT_ID}/items`, {
+        params: {
+          page,
+          pageSize,
+        },
+      });
       return res.data;
     },
   });
