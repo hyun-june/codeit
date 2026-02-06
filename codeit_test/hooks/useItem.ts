@@ -52,9 +52,7 @@ export const useCreateItem = () => {
       queryClient.invalidateQueries({ queryKey: ["items"] });
       console.log("아이템 생성 성공!!");
     },
-    onError: (error) => {
-      console.log("아이템 생성 실패..", error);
-    },
+    onError: (error) => console.log("아이템 생성 실패..", error),
   });
 };
 
@@ -67,9 +65,7 @@ export const useDeleteItem = () => {
       queryClient.invalidateQueries({ queryKey: ["items"] });
       console.log("아이템 삭제 성공!!");
     },
-    onError: (error) => {
-      console.log("아이템 삭제 실패..", error);
-    },
+    onError: (error) => console.log("아이템 삭제 실패..", error),
   });
 };
 

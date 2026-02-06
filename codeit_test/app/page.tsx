@@ -72,7 +72,7 @@ export default function Home() {
               handleCreateLIst();
             }
           }}
-          className="h-14 max-w-250 w-full rounded-3xl border-t-2 border-r-4 border-b-4 border-l-2 border-slate-900 px-2 py-4 pl-5"
+          className="h-14 max-w-250 w-full rounded-3xl border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a]  bg-slate-100 px-2 py-4 pl-5 focus:outline-none"
         />
         <Button
           onClick={handleCreateLIst}

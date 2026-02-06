@@ -32,7 +32,7 @@ const CheckList = ({ isCompleted, name, id }: CheckListProps) => {
   return (
     <Link href={`/items/${id}`} className="w-full">
       <div
-        className={`w-full h-12.5 px-2 flex items-center gap-4 border-2 border-slate-900 rounded-[27px] ${isCompleted ? "bg-violet-100" : ""}`}
+        className={`w-full h-12.5 px-2 flex items-center gap-4 border-2 border-slate-900 rounded-[27px] ${isCompleted ? "bg-violet-100" : "bg-white"}`}
       >
         <Image
           src={isCompleted ? "/icons/checkdone.png" : "/icons/checktodo.png"}

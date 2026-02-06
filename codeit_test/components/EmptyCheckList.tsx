@@ -21,7 +21,7 @@ const EmptyCheckList = ({ type }: EmptyCheckListProps) => {
         />
       </div>
 
-      <p className="text-center">
+      <p className="text-center text-slate-400 font-bold">
         {isDone ? (
           <>
             아직 다 한 일이 없어요. <br />

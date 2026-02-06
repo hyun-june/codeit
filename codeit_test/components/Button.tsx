@@ -87,9 +87,9 @@ const Button = ({ ...props }: ButtonProps) => {
   const isMobileCircle = type === "add" || type === "empty-add";
 
   const base =
-    "shrink-0 flex items-center justify-center border-t-2 border-l-2 border-b-4 border-r-4 border-slate-900 font-bold cursor-pointer";
+    "shrink-0 flex items-center justify-center border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] font-bold cursor-pointer gap-1";
 
-  const mobile = isMobileCircle && "w-14 h-14 rounded-full";
+  const mobile = isMobileCircle && "w-14 h-14 rounded-3xl";
 
   const desktop = circle
     ? "md:w-12 md:h-12 md:rounded-full"
