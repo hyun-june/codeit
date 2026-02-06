@@ -121,6 +121,7 @@ const page = () => {
   const handleUpdate = async () => {
     let finalImageUrl = imageUrl;
 
+    /** 이미지 업로드 */
     try {
       if (selectedFile) {
         const formData = new FormData();
