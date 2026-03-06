@@ -4,7 +4,7 @@ on: push
 
 jobs:
 push-test:
-runs-on: ubuntu-latest
-steps:
-  - name: 첫 번째 작업
-  run: echo "첫 번째 작업 진행중"
+  runs-on: ubuntu-latest
+  steps:
+    - name: 첫 번째 작업
+      run: echo "첫 번째 작업 진행중"
