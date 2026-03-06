@@ -28,13 +28,13 @@ describe("useInputs 테스트", () => {
 
   test("handleDelete 함수가 값을 올바르게 삭제하는지 확인", () => {
     const { result } = renderHook(() =>
-      useInputs({ name: "뭐", nickname: "어쩌구" }),
+      useInputs({ name: "뭐", nickname: "어쩌" }),
     );
 
     act(() => {
       result.current.handleDelete("name");
     });
     expect(result.current.values.name).toBe("");
-    expect(result.current.values.nickname).toBe("어쩌구");
+    expect(result.current.values.nickname).toBe("어쩌");
   });
 });
