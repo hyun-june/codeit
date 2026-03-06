@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import SignupForm from ".";
 import userEvent from "@testing-library/user-event";
+import { SignupForm } from ".";
 
 // test("회원가입 폼 테스트", () => {
 //   render(<SignupForm />);
