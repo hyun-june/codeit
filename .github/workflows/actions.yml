@@ -2,6 +2,8 @@ name: Github Actions 연습하기
 
 on:
   push:
+    branches:
+      - ci_test
     paths:
       - "lecture/**"
 
