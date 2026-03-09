@@ -4,7 +4,7 @@ import { act, renderHook } from "@testing-library/react";
 import { useInputs } from "./useInputs";
 
 describe("useInputs 테스트", () => {
-  test("초기값이 올바르게 설정되는지 확인", () => {
+  test("초기값이 올바르게 설정되는지 확인하기", () => {
     const { result } = renderHook(() => useInputs({ name: "", nickname: "" }));
     expect(result.current.values).toEqual({ name: "", nickname: "" });
   });
